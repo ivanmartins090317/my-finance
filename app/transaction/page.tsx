@@ -1,5 +1,14 @@
-const Transaction = () =>{
-  return <h2>Transaction</h2>
+import { Button } from "../_components/ui/button";
+
+const TransactionPage = () =>{
+  return (
+    <div >
+
+    <Button>
+      add
+    </Button>
+    </div>
+  )
 }
 
-export default Transaction;
+export default TransactionPage;
