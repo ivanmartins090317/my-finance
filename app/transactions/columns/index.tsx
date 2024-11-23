@@ -30,7 +30,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "date",
-    header: "getData(data)",
+    header: "Data",
   },
   {
     accessorKey: "amount",
