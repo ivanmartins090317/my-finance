@@ -8,6 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+
   DialogTrigger,
 } from "@/app/_components/ui/dialog"
 
@@ -22,7 +23,7 @@ import { MoneyInput } from "./money-input"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/app/_components/ui/select"
 import { TRANSACTION_CATEGORY_OPTIONS, TRANSACTION_PAYMENT_METHOD_OPTIONS, TRANSACTION_TYPE_OPTIONS, } from "../transactions/constants/functions"
 import { DatePicker } from "./ui/date-picker"
-import { AddTransaction} from "../_actions/add-transaction"
+import { UpsertTransaction} from "../_actions/upsertTransaction"
 
 const formSchema = z.object({
   name: z.string().trim().min(1,{
@@ -53,9 +54,10 @@ interface UpsertTransactionDialogProps {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
   defaultValues?: FormSchema;
+  transactionId?: string
 }
 
-export const UpsertTransactionDialog = ({isOpen, setIsOpen, defaultValues}: UpsertTransactionDialogProps) => {
+export const UpsertTransactionDialog = ({isOpen, setIsOpen, defaultValues, transactionId}: UpsertTransactionDialogProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues ?? { 
@@ -70,15 +72,14 @@ export const UpsertTransactionDialog = ({isOpen, setIsOpen, defaultValues}: Upse
 
   const onSubmit = async(data: FormSchema) => {
     try {
-      await AddTransaction(data)
+      await UpsertTransaction({...data, id: transactionId})  
       setIsOpen(false)
       form.reset()
     } catch (error) {
-      console.log(error);
-    
+      console.log(error);    
     }
-    
   }
+  const isUpdate = Boolean(transactionId)
   return (
     <Dialog 
     open={isOpen}
@@ -94,10 +95,10 @@ export const UpsertTransactionDialog = ({isOpen, setIsOpen, defaultValues}: Upse
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            Adicionar Transação
+            {isUpdate ? "Editar " : "Adicionar "} transação
           </DialogTitle>
-          <DialogDescription>2
-            Insiar aas informções da transação
+          <DialogDescription>
+            Insira as informções da transação
           </DialogDescription>
         </DialogHeader>
         {/* FORM */}
@@ -238,7 +239,7 @@ export const UpsertTransactionDialog = ({isOpen, setIsOpen, defaultValues}: Upse
           <DialogClose asChild>
            <Button type="button" variant="outline">Cancelar</Button>
           </DialogClose>
-          <Button type="submit">Adicionar</Button>
+          <Button type="submit">{isUpdate ? "Atualizar" : "Adicionar"}</Button>
         </DialogFooter>
         </form>
         </Form>

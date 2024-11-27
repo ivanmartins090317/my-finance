@@ -16,7 +16,7 @@ export const AddTransactionButton = () => {
           Adicionar transação
           <ArrowDownUpIcon />
         </Button>
-        <UpsertTransactionDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />
+        <UpsertTransactionDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen}  />
       </>
   
  )

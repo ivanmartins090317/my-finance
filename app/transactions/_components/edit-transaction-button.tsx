@@ -21,7 +21,7 @@ export const EditTransactionButton = ({transaction}: EditTransactionButtonProps)
         className="text-muted-foreground" onClick={() => setDialogIsOpen(true)}>
         <PencilIcon/>
       </Button>
-      <UpsertTransactionDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} 
+      <UpsertTransactionDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} transactionId={transaction.id}   
        defaultValues={{
         ...transaction,
         amount:Number(transaction.amount),    
