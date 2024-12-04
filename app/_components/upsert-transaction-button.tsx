@@ -10,6 +10,8 @@ import {
   DialogTitle,
 
   DialogTrigger,
+
+
 } from "@/app/_components/ui/dialog"
 
 import { z } from "zod"
@@ -24,6 +26,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { TRANSACTION_CATEGORY_OPTIONS, TRANSACTION_PAYMENT_METHOD_OPTIONS, TRANSACTION_TYPE_OPTIONS, } from "../transactions/constants/functions"
 import { DatePicker } from "./ui/date-picker"
 import { UpsertTransaction} from "../_actions/upsertTransaction"
+
 
 const formSchema = z.object({
   name: z.string().trim().min(1,{
@@ -88,11 +91,14 @@ export const UpsertTransactionDialog = ({isOpen, setIsOpen, defaultValues, trans
       if(!open){
         form.reset()
       }
-    }}>
+      
+    }}
+    >
       <DialogTrigger asChild>
        {/* havia um button aqui que foi removido para local onde quero usar o formL */}
       </DialogTrigger>
-      <DialogContent>
+     
+      <DialogContent className="max-h-[80vh] max-w-lg overflow-y-auto"  >
         <DialogHeader>
           <DialogTitle>
             {isUpdate ? "Editar " : "Adicionar "} transação
