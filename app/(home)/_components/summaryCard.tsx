@@ -12,7 +12,7 @@ interface SummaryCardProps{
 export const SummaryCard = ({icon, title,amount, size = "small"} : SummaryCardProps) =>{
 
   return(
-      <Card className="">
+      <Card className={`${size === "large" ? "bg-white bg-opacity-10" : ""}`}>
       <CardHeader className="flex-row items-center gap-2">
         {icon}
         <p className={`${size === "small" ?"text-muted-foreground" :"text-white opacity-70" }`}>{title}</p>
